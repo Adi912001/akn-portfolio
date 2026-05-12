@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adarsha KN - Full Stack Developer</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0f172a;
+            --secondary: #1e3a5f;
+            --accent: #3b82f6;
+            --accent-light: #60a5fa;
+            --text: #1f2937;
+            --text-light: #6b7280;
+            --border: #e5e7eb;
+            --success: #10b981;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text);
+            background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+            line-height: 1.6;
+        }
+
+        /* Header & Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            padding: 1rem 2rem;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            font-size: 14px;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: var(--accent);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .cta-btn {
+            background: var(--accent);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 13px;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .cta-btn:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+        }
+
+        main {
+            margin-top: 80px;
+        }
+
+        /* Hero Section */
+        .hero {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            animation: fadeIn 0.8s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .hero-content h1 {
+            font-size: 52px;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            line-height: 1.2;
+            animation: slideUp 0.8s ease-out 0.2s backwards;
+        }
+
+        .hero-content h1 span {
+            color: var(--accent);
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-content p {
+            font-size: 18px;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            line-height: 1.8;
+            animation: slideUp 0.8s ease-out 0.4s backwards;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            animation: slideUp 0.8s ease-out 0.6s backwards;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+            padding: 14px 32px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .btn-primary:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--accent);
+            padding: 14px 32px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: 2px solid var(--accent);
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .btn-secondary:hover {
+            background: var(--accent);
+            color: white;
+            box-shadow: 0 12px 24px rgba(59, 130, 246, 0.2);
+        }
+
+        .hero-visual {
+            position: relative;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .code-card {
+            background: var(--primary);
+            color: #e0e7ff;
+            padding: 1.5rem;
+            border-radius: 12px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.2);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .code-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), transparent);
+        }
+
+        .keyword { color: #60a5fa; }
+        .string { color: #34d399; }
+        .function { color: #f472b6; }
+
+        /* About Section */
+        .about {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 80px 2rem;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .section-title {
+            font-size: 36px;
+            color: var(--primary);
+            margin-bottom: 2rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-text p {
+            font-size: 16px;
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .stat {
+            background: linear-gradient(135deg, var(--accent), var(--secondary));
+            padding: 2rem;
+            border-radius: 12px;
+            color: white;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        /* Skills Section */
+        .skills {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 80px 2rem;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .skill-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+            border-left: 4px solid var(--accent);
+        }
+
+        .skill-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(59, 130, 246, 0.15);
+        }
+
+        .skill-card h3 {
+            font-size: 16px;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .skill-card p {
+            font-size: 14px;
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+
+        /* Projects Section */
+        .projects {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 80px 2rem;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(59, 130, 246, 0.15);
+        }
+
+        .project-header {
+            background: linear-gradient(135deg, var(--accent), var(--secondary));
+            padding: 2rem;
+            color: white;
+        }
+
+        .project-icon {
+            font-size: 32px;
+            margin-bottom: 1rem;
+        }
+
+        .project-card h3 {
+            font-size: 18px;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-card p {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+        }
+
+        .project-tech {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .tech-tag {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .project-body {
+            padding: 2rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-description {
+            font-size: 14px;
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .project-link:hover {
+            color: var(--secondary);
+            gap: 1rem;
+        }
+
+        /* Contact Section */
+        .contact {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 80px 2rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 20px;
+            color: white;
+            text-align: center;
+        }
+
+        .contact h2 {
+            font-size: 36px;
+            margin-bottom: 1rem;
+        }
+
+        .contact p {
+            font-size: 16px;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .contact-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .contact-link:hover {
+            color: var(--accent-light);
+            transform: translateY(-2px);
+        }
+
+        .download-resume {
+            background: white;
+            color: var(--primary);
+            padding: 14px 32px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            display: inline-block;
+            transition: all 0.3s;
+            font-size: 15px;
+        }
+
+        .download-resume:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            font-size: 14px;
+            margin-top: 4rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav ul {
+                gap: 1rem;
+                font-size: 13px;
+            }
+
+            .hero {
+                grid-template-columns: 1fr;
+                padding: 40px 1rem;
+            }
+
+            .hero-content h1 {
+                font-size: 36px;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <a href="#" class="logo">Adarsha<span>.dev</span></a>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="https://github.com/Adi912001" target="_blank" class="cta-btn">GitHub</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Full Stack Developer with <span>3+ Years</span> of Enterprise Experience</h1>
+                <p>Building scalable, high-performance applications for government and SaaS clients. Specialized in Spring Boot, Node.js, Angular, and React with proven track record of 30-40% performance improvements.</p>
+                <div class="hero-buttons">
+                    <a href="#contact" class="btn-primary">Get In Touch</a>
+                    <a href="https://github.com/Adi912001" target="_blank" class="btn-secondary">View on GitHub</a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="code-card">
+                    <div><span class="keyword">const</span> developer = {</div>
+                    <div>&nbsp;&nbsp;name: <span class="string">"Adarsha KN"</span>,</div>
+                    <div>&nbsp;&nbsp;skills: [<span class="string">"Spring Boot"</span>, <span class="string">"Angular"</span>, <span class="string">"React"</span>],</div>
+                    <div>&nbsp;&nbsp;speciality: <span class="string">"Performance Optimization"</span>,</div>
+                    <div>&nbsp;&nbsp;uptime: <span class="string">"99%+"</span>,</div>
+                    <div>&nbsp;&nbsp;<span class="function">buildSolutions</span>: () => <span class="string">"Enterprise Apps"</span></div>
+                    <div>}</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="about" id="about">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-content">
+                <div>
+                    <p>I'm a full stack developer with a passion for building high-performance, scalable applications that solve real-world problems. With 3+ years of experience working on enterprise-grade systems for government and US-based SaaS clients, I've learned what it takes to deliver mission-critical solutions.</p>
+                    <p>My expertise spans modern backend architectures (Spring Boot, Node.js, .NET Core) and responsive frontends (Angular, React). I'm particularly passionate about database optimization, API design, and implementing enterprise-grade security protocols.</p>
+                    <p>When I'm not coding, I'm exploring new technologies, contributing to open-source, and continuously improving my craft.</p>
+                </div>
+                <div class="stats">
+                    <div class="stat">
+                        <div class="stat-number">3+</div>
+                        <div class="stat-label">Years Experience</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">25+</div>
+                        <div class="stat-label">REST APIs Built</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">99%</div>
+                        <div class="stat-label">Uptime Maintained</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">40%</div>
+                        <div class="stat-label">Avg Performance Gain</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section class="skills" id="skills">
+            <h2 class="section-title">Technical Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <h3>Backend Development</h3>
+                    <p>Java (Spring Boot, Spring Security), C# (.NET Core), Node.js, REST APIs, Microservices Architecture, JWT Auth, RBAC</p>
+                </div>
+                <div class="skill-card">
+                    <h3>Frontend Development</h3>
+                    <p>Angular, React.js, TypeScript, HTML5, CSS3, Bootstrap, Responsive Design, Form Validation, Data Binding</p>
+                </div>
+                <div class="skill-card">
+                    <h3>Database & ORM</h3>
+                    <p>MySQL, PostgreSQL, MongoDB, JPA/Hibernate, JDBC, Query Optimization, Indexing Strategies, Data Modeling</p>
+                </div>
+                <div class="skill-card">
+                    <h3>Tools & Utilities</h3>
+                    <p>Git, JIRA, Maven, Swagger, Postman, VS Code, IntelliJ IDEA, Database Tools</p>
+                </div>
+                <div class="skill-card">
+                    <h3>Testing & Quality</h3>
+                    <p>JUnit, Mockito, Unit Testing, Integration Testing, Code Coverage, Quality Assurance, 75%+ Coverage Achieved</p>
+                </div>
+                <div class="skill-card">
+                    <h3>Architecture</h3>
+                    <p>Microservices Design, REST API Architecture, Database Optimization, Query Performance Tuning, Security Implementation</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section class="projects" id="projects">
+            <h2 class="section-title">Featured Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-icon">🏛️</div>
+                        <h3>BDA Government System</h3>
+                        <p>Mission-critical platform for citizen workflows</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">.NET Core</span>
+                            <span class="tech-tag">Angular</span>
+                            <span class="tech-tag">MySQL</span>
+                        </div>
+                    </div>
+                    <div class="project-body">
+                        <p class="project-description">Architected backend services and responsive UI for 100K+ government workflows. Engineered 25+ secure REST APIs with RBAC and JWT authentication. Achieved 30-40% API performance improvement through MySQL query optimization and strategic indexing.</p>
+                        <div class="project-links">
+                            <!-- <a href="https://github.com" target="_blank" class="project-link">
+                                <i class="fab fa-github"></i> View Code
+                            </a> -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-icon">📄</div>
+                        <h3>DMS - Document Management</h3>
+                        <p>Scalable microservice platform</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Spring Boot</span>
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">PostgreSQL</span>
+                        </div>
+                    </div>
+                    <div class="project-body">
+                        <p class="project-description">Built microservice-based document management system handling 50K+ documents. Designed 12+ RESTful APIs for document operations (CRUD, search, versioning). Optimized PostgreSQL queries achieving 35% improvement in retrieval performance and response times.</p>
+                        <div class="project-links">
+                            <!-- <a href="https://github.com" target="_blank" class="project-link">
+                                <i class="fab fa-github"></i> View Code
+                            </a> -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-icon">💼</div>
+                        <h3>Deal Modeler - SaaS</h3>
+                        <p>Enterprise workflow engine</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Spring Boot</span>
+                            <span class="tech-tag">Angular</span>
+                            <span class="tech-tag">MySQL</span>
+                        </div>
+                    </div>
+                    <div class="project-body">
+                        <p class="project-description">Engineered configurable deal workflow engine with dynamic business rules. Designed REST APIs enabling zero-downtime configuration. Optimized complex transactions reducing processing time by 25%.</p>
+                        <div class="project-links">
+                            <!-- <a href="https://github.com" target="_blank" class="project-link">
+                                <i class="fab fa-github"></i> View Code
+                            </a> -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-icon">✍️</div>
+                        <h3>Contract Authoring Tool</h3>
+                        <p>Workflow automation platform</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Spring Boot</span>
+                            <span class="tech-tag">Angular</span>
+                            <span class="tech-tag">JUnit</span>
+                        </div>
+                    </div>
+                    <div class="project-body">
+                        <p class="project-description">Built secure contract lifecycle automation platform. Implemented JPA/Hibernate ORM layer with reusable UI components. Achieved 75%+ code coverage with 50+ unit test cases using JUnit and Mockito.</p>
+                        <div class="project-links">
+                            <!-- <a href="https://github.com" target="_blank" class="project-link">
+                                <i class="fab fa-github"></i> View Code
+                            </a> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="contact" id="contact">
+            <h2>Let's Work Together</h2>
+            <p>I'm open to freelance projects, full-time opportunities, and interesting collaborations.<br>Feel free to reach out!</p>
+            <div class="contact-links">
+                <a href="mailto:adikanchimoole@gmail.com" class="contact-link">
+                    <i class="fas fa-envelope"></i> Email
+                </a>
+                <a href="https://linkedin.com/in/adarsha-kn-5b6937216" target="_blank" class="contact-link">
+                    <i class="fab fa-linkedin"></i> LinkedIn
+                </a>
+                <a href="https://github.com/Adi912001" target="_blank" class="contact-link">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+            </div>
+            <a href="#" class="download-resume">📄 Download Resume</a>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Adarsha KN. Built with HTML, CSS & vanilla JavaScript. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#') {
+                    e.preventDefault();
+                    const element = document.querySelector(href);
+                    if (element) {
+                        element.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+            });
+        });
+
+        // Simple scroll animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeIn 0.6s ease-in forwards';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.skill-card, .project-card, .stat').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
